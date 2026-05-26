@@ -155,11 +155,11 @@ for epoch in range(EPOCHS):
         best_val_f1 = val_f1
         best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
         torch.save(best_state, os.path.join(OUT_DIR, "roberta_best_state.pt"))
-        print(f"     ✅ Best saved  (F1={best_val_f1:.4f})")
+        print(f"      Best saved  (F1={best_val_f1:.4f})")
 
 model.load_state_dict(best_state)
 model.to(DEVICE)
-print(f"\n  ✅ Best model loaded  (Val F1={best_val_f1:.4f})")
+print(f"\n   Best model loaded  (Val F1={best_val_f1:.4f})")
 
 def run_inference(texts, batch_size=64):
     ds = TextDataset(texts, labels=None, tokenizer=tokenizer)
@@ -220,8 +220,8 @@ def export_csv(df, path):
 export_csv(df_posts_roberta, os.path.join(OUT_DIR, "df_posts_roberta.csv"))
 export_csv(df_exploded_roberta, os.path.join(OUT_DIR, "df_exploded_roberta.csv"))
 
-print(f"\n  ✅ df_posts_roberta    → {OUT_DIR}/df_posts_roberta.csv")
-print(f"  ✅ df_exploded_roberta → {OUT_DIR}/df_exploded_roberta.csv")
+print(f"\n   df_posts_roberta    → {OUT_DIR}/df_posts_roberta.csv")
+print(f"   df_exploded_roberta → {OUT_DIR}/df_exploded_roberta.csv")
 
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 fig.suptitle(f"RoBERTa Results — HateXplain  |  Test Macro-F1={test_f1:.4f}  Acc={test_acc:.4f}", fontsize=13, fontweight="bold")
@@ -253,4 +253,4 @@ plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "roberta_results.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
-print("✅ DONE — RoBERTa pipeline complete")
+print(" DONE — RoBERTa pipeline complete")
