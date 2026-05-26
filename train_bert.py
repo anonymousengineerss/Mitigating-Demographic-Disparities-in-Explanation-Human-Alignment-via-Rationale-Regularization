@@ -35,7 +35,7 @@ LR = 2e-5
 SEED = 42
 LABEL2ID = {"normal": 0, "hatespeech": 1, "offensive": 2}
 ID2LABEL = {0: "normal", 1: "hatespeech", 2: "offensive"}
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+DEVICE = torch.device("cuda" if torch.cuda.is_available() ele "cpu")
 
 random.seed(SEED)
 np.random.seed(SEED)
@@ -155,11 +155,11 @@ for epoch in range(EPOCHS):
         best_val_f1 = val_f1
         best_state = {k: v.cpu().clone() for k, v in model.state_dict().items()}
         torch.save(best_state, os.path.join(OUT_DIR, "bert_best_state.pt"))
-        print(f"     ✅ Best saved  (F1={best_val_f1:.4f})")
+        print(f"      Best saved  (F1={best_val_f1:.4f})")
 
 model.load_state_dict(best_state)
 model.to(DEVICE)
-print(f"\n  ✅ Best model loaded  (Val F1={best_val_f1:.4f})")
+print(f"\n   Best model loaded  (Val F1={best_val_f1:.4f})")
 
 def run_inference(texts, batch_size=64):
     ds = TextDataset(texts, labels=None, tokenizer=tokenizer)
@@ -220,8 +220,8 @@ def export_csv(df, path):
 export_csv(df_posts_bert, os.path.join(OUT_DIR, "df_posts_bert.csv"))
 export_csv(df_exploded_bert, os.path.join(OUT_DIR, "df_exploded_bert.csv"))
 
-print(f"\n  ✅ df_posts_bert    → {OUT_DIR}/df_posts_bert.csv")
-print(f"  ✅ df_exploded_bert → {OUT_DIR}/df_exploded_bert.csv")
+print(f"\n   df_posts_bert    → {OUT_DIR}/df_posts_bert.csv")
+print(f"   df_exploded_bert → {OUT_DIR}/df_exploded_bert.csv")
 
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 fig.suptitle(f"BERT Results — HateXplain  |  Test Macro-F1={test_f1:.4f}  Acc={test_acc:.4f}", fontsize=13, fontweight="bold")
@@ -253,4 +253,4 @@ plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "bert_results.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
-print("✅ DONE — BERT pipeline complete")
+print(" DONE — BERT pipeline complete")
